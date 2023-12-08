@@ -71,3 +71,29 @@ function displayResultPassive(data) {
 }
 
 // You are only allowed to call one function after this
+//
+//
+//
+function square(n) {
+  return n * n;
+}
+
+function cube(n) {
+  return n * n * n;
+}
+
+
+function sumOfSomet(a, b , fn) {
+  let val1 = fn(a);
+  let val2 = fn(b);
+
+  return val1 + val2;
+}
+
+console.log(sumOfSomet(1, 2, square));
+console.log(sumOfSomet(1, 2, cube));
+
+const ans = sumOfSomet(1, 2, function(n) {
+  return n * n * n  * n;
+})
+console.log(ans);
