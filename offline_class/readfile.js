@@ -1,4 +1,4 @@
-const { log } = require("console");
+// const { log } = require("console");
 const fs = require("fs");
 
 fs.readFile("a.txt", "utf-8",  function(err, data){
