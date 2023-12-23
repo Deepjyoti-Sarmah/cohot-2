@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM</title>
+    <!-- <style>
+        .container{
+            background-color: red;
+            font-size: 100;
+            padding: 20;
+            margin: 100;
+            color: green;
+        }
+    </style> -->
+</head>
+<script>
+    function populateDiv(){
+        const a = document.getElementById("firstnumber").value;
+        const b = document.getElementById("secondnumber").value;
+
+        // const element = document.getElementById("finalSum");
+        // console.log(element);
+        // element.innerHTML = parseInt(a) + parseInt(b);
+
+        fetch("https://sum-server.100xdevs.com/sum?a=" + a + "&b=" + b)
+            .then(function(response) {
+                console.log(response);
+            });
+    }
+
+    async function populateDiv2() {
+
+        const a = document.getElementById("firstnumber").value;
+        const b = document.getElementById("secondnumber").value;
+
+        const res = await fetch("https://sum-server.100xdevs.com/sum?a=" + a + "&b=" + b);
+        const ans = await res.text();
+
+        document.getElementById("finalSum").innerHTML = ans;
+
+    }
+</script>
+<br>
+    <input id="firstnumber" type="text" placeholder="First number"></input>
+    <br></br>   
+    <input id="secondnumber" type="text" placeholder="Last number"></input>
+    <br></br>
+    <!-- <button onclick="populateDiv()">Calculate sum</button> -->
+    <button onclick="populateDiv2()">Calculate sum</button>
+    <br></br>    
+    <div id="finalSum"></div>
+<!-- 
+    <div class="container"> hi there </div>
+    <div class="container"> hi there 2</div> -->
+</body>
+</html>
