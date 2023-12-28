@@ -4,14 +4,14 @@ const app = express();
 
 const schemas= zod.array(zod.number());
 
-const schema = zod.object({
-  email: zod.string(),
-  password: zod.string(),
-  country: zod.literal("IN").or(zod.literal("US")),
-  age: zod.number().min(18),
-  kidneys: zod.array(zod.number())
-})
-  
+// const schema = zod.object({
+//   email: zod.string(),
+//   password: zod.string(),
+//   country: zod.literal("IN").or(zod.literal("US")),
+//   age: zod.number().min(18),
+//   kidneys: zod.array(zod.number())
+// })
+//   
 app.use(express.json());
 
 app.post("/health-checkup",  function (req, res) {
@@ -29,4 +29,4 @@ app.post("/health-checkup",  function (req, res) {
   }
 });
 
-
+app.listen(3000);
