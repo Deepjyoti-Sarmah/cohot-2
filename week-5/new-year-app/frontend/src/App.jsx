@@ -4,7 +4,6 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import { Todos } from './components/Todos'
 import { CreateTodo } from './components/CreateTodo'
-// import { json } from 'express'
 
 function App() {
     
