@@ -8,53 +8,82 @@ function App() {
   //   setFirstTitle("My name is " + Math.random())
   // }
   //
-  const [todos, setTodos] = useState([{
-    id: 1, 
-    title: "go to gym",
-    desc: "go to gym today"
-  }, {
-    id: 2, 
-    title: "eat food",
-    desc: "eat meal now "
-  },{
-    id: 3, 
-    title: "go to class",
-    desc: "do live class"
-  }
-  ])
+// const [todos, setTodos] = useState([{
+  //   id: 1, 
+  //   title: "go to gym",
+  //   desc: "go to gym today"
+  // }, {
+  //   id: 2, 
+  //   title: "eat food",
+  //   desc: "eat meal now "
+  // },{
+  //   id: 3, 
+  //   title: "go to class",
+  //   desc: "do live class"
+  // }
+  // ])
 
-  function addTodo(){
-    setTodos([...todos, {
-      id: 4,
-      title: "learn reat",
-      desc: "Do assignment"
-    }])
-  }
-  return (
-    <div>
-    {/*   <button onClick={changeTitle}>Click me to change the title</button> */}
-    {/*   <Header title={firstTitle} /> */}
-    {/*   <br /> */}
-    {/*   <Header title="My name is raman" /> */}
-    {/*   <Header title="My name is raman" /> */}
-    {/*   <Header title="My name is raman" /> */}
-    {/*   <Header title="My name is raman" /> */}
-      <button onClick={addTodo}>Click to  add todo</button>
-      {todos.map(todo => <Todo key={todo.id} title={todo.title} desc={todo.desc}/>)}
-    </div>
-  )
-}
-
-function Todo({title, desc}) {
+  // function addTodo(){
+  //   setTodos([...todos, {
+  //     id: 4,
+  //     title: "learn reat",
+  //     desc: "Do assignment"
+  //   }])
+  // }
+  // return (
+  //   <div>
+  //   {/*   <button onClick={changeTitle}>Click me to change the title</button> */}
+  //   {/*   <Header title={firstTitle} /> */}
+  //   {/*   <br /> */}
+  //   {/*   <Header title="My name is raman" /> */}
+  //   {/*   <Header title="My name is raman" /> */}
+  //   {/*   <Header title="My name is raman" /> */}
+  //   {/*   <Header title="My name is raman" /> */}
+  //     <button onClick={addTodo}>Click to  add todo</button>
+  //     {todos.map(todo => <Todo key={todo.id} title={todo.title} desc={todo.desc}/>)}
+  //   </div>
+  // )
+  //
+  //
+  //
+  //
+  //
+  //
   return <div>
-    <h1>
-      {title}
-    </h1>
-    <h5>
-      {desc}
-    </h5>
+    {/* <CardWrapper innerComponent={<TextComponent/>} /> */}
+    <CardWrapper> hi there</CardWrapper>
   </div>
 }
+
+function CardWrapper({children}) {
+  console.log(children)
+  return <div style={{border: "2px solid black", padding: 20}}>
+    {children}
+  </div>
+}
+
+// function CardWrapper({innerComponent}) {
+//   return <div style={{border: "2px solid black", padding: 20}}>
+//     {innerComponent}
+//   </div>
+// }
+
+// function TextComponent(){
+//   return <div>
+//     "Hi there"
+//   </div>
+// }
+
+// function Todo({title, desc}) {
+//   return <div>
+//     <h1>
+//       {title}
+//     </h1>
+//     <h5>
+//       {desc}
+//     </h5>
+//   </div>
+// }
 
 // const Header = memo(function ({title}) {
 //   return <div>
