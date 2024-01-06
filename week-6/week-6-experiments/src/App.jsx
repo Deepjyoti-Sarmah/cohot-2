@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useState } from "react"
 import { memo } from 'react';
 
@@ -49,18 +50,47 @@ function App() {
   //
   //
   //
-  return <div>
-    {/* <CardWrapper innerComponent={<TextComponent/>} /> */}
-    <CardWrapper> hi there</CardWrapper>
-  </div>
+  // return <div>
+  //   {/* <CardWrapper innerComponent={<TextComponent/>} /> */}
+  //   <CardWrapper> hi there</CardWrapper>
+  // </div>
+
+  const [todos, setTodo] = useState([]);
+  
+  useEffect(()=> {
+    setInterval(() => {
+      fetch("https://sum-server.100xdevs.com/todos")
+        .then(async(res) => {
+          const json = await res.json();
+          setTodo(json.todos);
+        })
+    }, 10000);
+  },[])
+
+  return (
+    <>
+    {todos.map(todo => <TodoDisplay key={todo.id} title={todo.title} desc={todo.desc}/>)}
+    </>
+  )
 }
 
-function CardWrapper({children}) {
-  console.log(children)
-  return <div style={{border: "2px solid black", padding: 20}}>
-    {children}
-  </div>
+function TodoDisplay({title , desc}) {
+  return (
+    <>
+     <div>
+      <h4>{title}</h4>
+      <h5>{desc}</h5>
+     </div> 
+    </>
+  )
 }
+
+// function CardWrapper({children}) {
+//   console.log(children)
+//   return <div style={{border: "2px solid black", padding: 20}}>
+//     {children}
+//   </div>
+// }
 
 // function CardWrapper({innerComponent}) {
 //   return <div style={{border: "2px solid black", padding: 20}}>
