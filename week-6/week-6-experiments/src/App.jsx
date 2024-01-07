@@ -1,9 +1,9 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useState } from "react"
 import { memo } from 'react';
 
-// function App() {
+function App() {
   // const [firstTitle, setFirstTitle] = useState("my name is harkirat");
 
   // function changeTitle() {
@@ -74,12 +74,8 @@ import { memo } from 'react';
 //     </>
 //   )
 // }
-
-
-//   const [todo, setTodo] = useState({});
-//   
-//   useEffect(() => {
-//     axios("https://sum-server.100xdevs.com/todo")
+//   const [todo, setTodo] = useState({}); 
+//   useEffect(() => { axios("https://sum-server.100xdevs.com/todo")
 //       .then(function(res) {
 //         setTodo(res.data.todos);
 //       })
@@ -104,53 +100,95 @@ import { memo } from 'react';
 //   </div>
 // }
 
-function App() {
+// function App() {
 
-  const [count, setCoount] = useState(1);
+  // const [count, setCoount] = useState(1);
 
   // function increaseCount() {
   //   setCoount()
   // }
 
-  return <div>
-    <button type="" onClick={function(){
-      setCoount(1)
-    }}>1</button>
-    <button type="" onClick={function(){
-      setCoount(2)
-    }}>2</button>
-    <button type="" onClick={function(){
-      setCoount(3)
-    }}>3</button>
-    <button type="" onClick={function(){
-      setCoount(4)
-    }}>4</button>
+  // return <div>
+  //   <button type="" onClick={function(){
+  //     setCoount(1)
+  //   }}>1</button>
+  //   <button type="" onClick={function(){
+  //     setCoount(2)
+  //   }}>2</button>
+  //   <button type="" onClick={function(){
+  //     setCoount(3)
+  //   }}>3</button>
+  //   <button type="" onClick={function(){
+  //     setCoount(4)
+  //   }}>4</button>
 
-    <Todo id={count} />
-  </div>
+  //   <Todo id={count} />
+  // </div>
+
+  const [counter, setCounter] = useState(0);
+  const [inputValue, setInputValue] = useState(1);
+  // const [count, setCount] = useState(0);
+
+// let count =  useMemo(() => {
+   //  let finalcount = 0; 
+   //  for (let i = 0; i < inputValue; i++) {
+   //    finalcount = finalcount + i;
+   //  }
+   //  }, [inputValue]) 
+    //
+
+  // useEffect(() => {
+  //   let finalcount = 0; 
+  //   for (let i = 0; i < inputValue; i++) {
+  //     finalcount = finalcount + i;
+  //   }
+  //   setCount(finalcount);
+  // }, [inputValue])
+
+   let count =  useMemo(() => {
+    let finalcount = 0; 
+    for (let i = 0; i < inputValue; i++) {
+      finalcount = finalcount + i;
+    }
+    return finalcount;
+  }, [inputValue]);
+
+
+
+ return <div> 
+    <input onChange={
+      function(e) { setInputValue(e.target.value)}}>
+    </input> <br/> 
+    Sum from 1 to {inputValue} is {count}  
+    <br /> 
+    <button onClick={
+      function(){ setCounter(counter + 1) }} type="">
+      Counter: {counter}
+    </button>
+  </div> 
 }
 
-function Todo({id}) {
-  const [todo, setTodo] = useState({});
+// function Todo({id}) {
+//   const [todo, setTodo] = useState({});
 
-  useEffect(() => {
-    fetch("https://sum-server.100xdevs.com/todo?id=" + id)
-      .then(async function(res) {
-        const json = await res.json();
-        setTodo (json.todo);
-      })
-  }, [id])
+//   useEffect(() => {
+//     fetch("https://sum-server.100xdevs.com/todo?id=" + id)
+//       .then(async function(res) {
+//         const json = await res.json();
+//         setTodo (json.todo);
+//       })
+//   }, [id])
 
-  return <div>
-    Id: {id}
-    <h1>
-      {todo.title}
-    </h1>
-    <h4>
-      {todo.description}
-    </h4>
-  </div>
-}
+{/*   return <div> */}
+{/*     Id: {id} */}
+{/*     <h1> */}
+{/*       {todo.title} */}
+{/*     </h1> */}
+{/*     <h4> */}
+{/*       {todo.description} */}
+{/*     </h4> */}
+{/*   </div> */}
+{/* } */}
 
 
 // function TodoDisplay({title , desc}) {
@@ -199,5 +237,44 @@ function Todo({id}) {
 //     {title}
 //   </div>
 // })
+
+// function App() {
+//   const [count, setcount] = useState(0);
+//   const [text, settext] = useState(0);
+//   const [ans, setans] = useState(0)
+
+//   const calculateSum = (n) => {
+//     // console.log(n);
+//     setans((n*(n+1))/2);
+//   };
+//   
+//   return (
+//    
+//     <div>
+//       <input placeholder="SUm k liye no daalo" value={text} onChange={(e) => {
+//         settext(settext(e.target.value))
+//         calculateSum(parseInt(e.target.value));
+//       }}></input>
+//       Answer of sum is {ans}  
+//       <button onClick={() => setcount(count+1)}>{"Count is " + count}</button>
+//     </div>
+//     
+//   );
+// }
+
+// function ToDo({id}) {
+//   const [Todo, setTodo] = useState({})
+//   useEffect(() => {
+//     fetch("https://sum-server.100xdevs.com/todo?id=" + id).then(async (res) => {
+//       const json = await res.json();
+//       setTodo(json.todo)
+//     })
+//     
+//   }, [id])
+//   return <>
+//     <h1>{Todo.title}</h1>
+//     <h3>{Todo.description}</h3>
+//   </>
+// }
 
 export default App
