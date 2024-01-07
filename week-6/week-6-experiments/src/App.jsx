@@ -1,8 +1,9 @@
+import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react"
 import { memo } from 'react';
 
-function App() {
+// function App() {
   // const [firstTitle, setFirstTitle] = useState("my name is harkirat");
 
   // function changeTitle() {
@@ -55,35 +56,113 @@ function App() {
   //   <CardWrapper> hi there</CardWrapper>
   // </div>
 
-  const [todos, setTodo] = useState([]);
-  
-  useEffect(()=> {
-    setInterval(() => {
-      fetch("https://sum-server.100xdevs.com/todos")
-        .then(async(res) => {
-          const json = await res.json();
-          setTodo(json.todos);
-        })
-    }, 10000);
-  },[])
+  // const [todos, setTodo] = useState([]);
+  // 
+  // useEffect(()=> {
+  //   setInterval(() => {
+  //     fetch("https://sum-server.100xdevs.com/todos")
+  //       .then(async(res) => {
+  //         const json = await res.json();
+  //         setTodo(json.todos);
+  //       })
+  //   }, 10000);
+  // },[])
 
-  return (
-    <>
-    {todos.map(todo => <TodoDisplay key={todo.id} title={todo.title} desc={todo.desc}/>)}
-    </>
-  )
+//   return (
+//     <>
+//     {/* {todos.map(todo => <TodoDisplay key={todo.id} title={todo.title} desc={todo.desc}/>)} */}
+//     </>
+//   )
+// }
+
+
+//   const [todo, setTodo] = useState({});
+//   
+//   useEffect(() => {
+//     axios("https://sum-server.100xdevs.com/todo")
+//       .then(function(res) {
+//         setTodo(res.data.todos);
+//       })
+//   },[]); 
+
+//   return <div>
+//     {/* <Todo id={1} /> */}
+//     {todo.map(todo => <Todo key={todo.id} title={todo.title} desc={todo.desc}/>)}
+//   </div>
+
+// }
+
+// function Todo({title, desc}) {
+
+//   return <div>
+//     <h1>
+//       {title}
+//     </h1>
+//     <h4>
+//       {desc}
+//     </h4>
+//   </div>
+// }
+
+function App() {
+
+  const [count, setCoount] = useState(1);
+
+  // function increaseCount() {
+  //   setCoount()
+  // }
+
+  return <div>
+    <button type="" onClick={function(){
+      setCoount(1)
+    }}>1</button>
+    <button type="" onClick={function(){
+      setCoount(2)
+    }}>2</button>
+    <button type="" onClick={function(){
+      setCoount(3)
+    }}>3</button>
+    <button type="" onClick={function(){
+      setCoount(4)
+    }}>4</button>
+
+    <Todo id={count} />
+  </div>
 }
 
-function TodoDisplay({title , desc}) {
-  return (
-    <>
-     <div>
-      <h4>{title}</h4>
-      <h5>{desc}</h5>
-     </div> 
-    </>
-  )
+function Todo({id}) {
+  const [todo, setTodo] = useState({});
+
+  useEffect(() => {
+    fetch("https://sum-server.100xdevs.com/todo?id=" + id)
+      .then(async function(res) {
+        const json = await res.json();
+        setTodo (json.todo);
+      })
+  }, [id])
+
+  return <div>
+    Id: {id}
+    <h1>
+      {todo.title}
+    </h1>
+    <h4>
+      {todo.description}
+    </h4>
+  </div>
 }
+
+
+// function TodoDisplay({title , desc}) {
+//   return (
+//     <>
+//      <div>
+//       <h4>{title}</h4>
+//       <h5>{desc}</h5>
+//      </div> 
+//     </>
+//   )
+// }
 
 // function CardWrapper({children}) {
 //   console.log(children)
