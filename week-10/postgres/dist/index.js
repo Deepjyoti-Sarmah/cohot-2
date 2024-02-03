@@ -29,7 +29,7 @@ function createUsersTable() {
         console.log(result);
     });
 }
-function insertData() {
+function insertData(username, email, password) {
     return __awaiter(this, void 0, void 0, function* () {
         // const client = new Client({
         //   host: "localhost",
@@ -40,8 +40,10 @@ function insertData() {
         // });
         try {
             // await client.connect();
-            const insertQuery = "INSERT INTO users (username, email, password) VALUES ('username2', 'user3@example.com', 'user_password');";
-            const res = yield client.query(insertQuery);
+            // const insertQuery = "INSERT INTO users (username, email, password) VALUES ('username2', 'user3@example.com', 'user_password');";
+            const insertQuery = "INSERT INTO users (username, email, password) VALUES ($1, $2, $3);";
+            const values = [username, email, password];
+            const res = yield client.query(insertQuery, values);
             console.log('Insertion success:', res); // Output insertion result
         }
         catch (error) {
@@ -52,6 +54,41 @@ function insertData() {
         }
     });
 }
-insertData();
+function getUser(email) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const client = new pg_1.Client({
+            host: 'localhost',
+            port: 5432,
+            database: 'postgres',
+            user: 'postgres',
+            password: 'mysecretpassword',
+        });
+        try {
+            yield client.connect(); // Ensure client connection is established
+            const query = 'SELECT * FROM users WHERE email = $1';
+            const values = [email];
+            const result = yield client.query(query, values);
+            if (result.rows.length > 0) {
+                console.log('User found:', result.rows[0]); // Output user data
+                return result.rows[0]; // Return the user data
+            }
+            else {
+                console.log('No user found with the given email.');
+                return null; // Return null if no user was found
+            }
+        }
+        catch (err) {
+            console.error('Error during fetching user:', err);
+            throw err; // Rethrow or handle error appropriately
+        }
+        finally {
+            yield client.end(); // Close the client connection
+        }
+    });
+}
+// Example usage
+// getUser('user5@example.com').catch(console.error);
+insertData('username5', 'user5@example.com', 'user_password').catch(console.error);
+getUser('user5@example.com').catch(console.error);
 createUsersTable();
 // Off topic question How to audit a smart contract? Got an assignment for a internship need to create a smart contract, submit it on a test net and audit it. Smart Contract created deployment and testing left  
