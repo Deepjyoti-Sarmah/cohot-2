@@ -1,14 +1,23 @@
 "use strict";
-function isLegal(user) {
-    if (user.age > 18) {
-        return true;
+function maxValue(arr) {
+    let max = 0;
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] > max) {
+            max = arr[i];
+        }
     }
-    else {
-        return false;
-    }
+    return max;
 }
-isLegal({
-    firstName: "deep",
-    lastName: "Deep",
-    age: 20
-});
+console.log(maxValue([1, 2, 3]));
+function filteredUsers(users) {
+    return users.filter(x => x.age >= 18);
+}
+console.log(filteredUsers([{
+        firstName: "harkirat",
+        lastName: "Singh",
+        age: 21
+    }, {
+        firstName: "Raman",
+        lastName: "Singh",
+        age: 16
+    },]));
