@@ -1,7 +1,7 @@
 import { Hono } from 'hono'
 import { PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from '@prisma/extension-accelerate'
-import { decode, sign, verify } from 'hono/jwt'
+import { sign, verify } from 'hono/jwt'
 
 const app = new Hono<{
   Bindings: {
@@ -16,9 +16,7 @@ const app = new Hono<{
   }
 }>();
 
-
 app.use("/api/v1/blog/*", async (c, next) => {
-
   const jwt = c.req.header("Authorization");
   if (!jwt) {
     c.status(401);
