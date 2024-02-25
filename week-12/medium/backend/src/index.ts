@@ -9,7 +9,10 @@ const app = new Hono<{
     JWT_SECRET: string,
   },
   Variables: {
-    userId: string
+    userId: string,
+    title: string,
+    content: string,
+    authorId: string
   }
 }>();
 
@@ -88,18 +91,111 @@ app.post("/api/v1/signin", async (c) => {
   }
 });
 
-app.post("/api/v1/blog", (c) => {
-  return c.text("post blog route");
+app.post("/api/v1/blog", async (c) => {
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env.DATABASE_URL,
+  }).$extends(withAccelerate())
+
+  const userId = c.get("userId");
+  const body = await c.req.json();
+
+  try {
+    const user = await prisma.user.findUnique({
+      where:{id: userId}
+    });
+
+    if (!user) {
+      c.status(403)
+      return c.json({error:"user not found"});
+    }
+
+    const post = await prisma.post.create({
+      data: {
+        title: body.title,
+        content: body.content,
+        published: body.published,
+        authorId: userId
+      }  
+    });
+    return c.json({id: post.id});
+
+  } catch (error) {
+    c.status(403);
+    return c.json({error: "error while creating blog"});
+  }
 });
 
-app.put("/api/v1/blog", (c) => {
-  return c.text(" put blog route");
+app.put("/api/v1/blog", async (c) => {
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env.DATABASE_URL,
+  }).$extends(withAccelerate())
+
+  const userId = c.get("userId");
+  const body = await c.req.json();
+
+  try {
+    const user = await prisma.user.findUnique({
+      where: {id: userId}
+    });
+
+    if(!user) {
+      c.status(403);
+      c.json({error: "User not found"});
+    }
+
+    const updatePost = await prisma.post.update({
+      where: {
+        id: body.id,
+        authorId: userId
+      },
+      data: {
+        title: body.title,
+        content: body.content,
+        published: body.published
+      }
+    });
+    return c.json({
+      message: "Updated post",
+      updatedPost: updatePost.id
+    });
+
+  } catch (error) {
+    c.status(403);
+    return c.json({error: "error while updating blog"});
+  }
 });
 
-app.get("/api/v1/blog/:id", (c) => {
+app.get("/api/v1/blog/:id", async (c) => {
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env.DATABASE_URL,
+  }).$extends(withAccelerate())
+  
+  const userId = c.get("userId");
   const id = c.req.param("id");
-  console.log(id);
-  return c.text("get blog route");
+  // console.log(id);
+  try {
+    const user = await prisma.user.findUnique({
+      where: {id: userId}
+    });
+
+    if(!user) {
+      c.status(403);
+      return c.json({error: "user not found"});
+    }
+
+    const getPost = await prisma.post.findFirst({
+      where: {
+        id: id,
+      }
+    });
+
+    return c.json({blogpost: getPost?.id});
+    
+  } catch (error) {
+    c.status(403);
+    return c.json({error: "error while fetching blog"});
+    
+  }
 });
 
 export default app
