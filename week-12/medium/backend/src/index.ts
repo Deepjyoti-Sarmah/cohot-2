@@ -39,12 +39,16 @@ app.use("/api/v1/blog/*", async (c, next) => {
   }
 });
 
+app.get("/", (c) => {
+  return c.text("Namaste Hono");
+})
+
 app.post("/api/v1/signup", async (c) => {
   const prisma = new PrismaClient({
       datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate())
 
-  const {body} = await c.req.json();
+  const body = await c.req.json();
   try {
     const user = await prisma.user.create({
       data: {
