@@ -16,7 +16,7 @@ export const blogRoute = new Hono<{
   }
 }>();
 
-initMiddleware(blogRoute);
+blogRoute.use("/*", initMiddleware);
 
 blogRoute.post("/", async (c) => {
   const prisma = new PrismaClient({

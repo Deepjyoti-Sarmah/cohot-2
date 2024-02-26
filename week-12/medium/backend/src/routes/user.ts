@@ -2,7 +2,7 @@ import { Hono } from 'hono'
 import { PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from '@prisma/extension-accelerate'
 import { sign } from 'hono/jwt'
-import { initMiddleware } from '../middleware';
+// import { initMiddleware } from '../middleware';
 
 export const userRoute = new Hono<{
   Bindings: {
@@ -11,7 +11,6 @@ export const userRoute = new Hono<{
   }
 }>();
 
-initMiddleware(userRoute);
 
 userRoute.post("/signup", async (c) => {
   const prisma = new PrismaClient({
