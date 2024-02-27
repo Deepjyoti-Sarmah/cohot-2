@@ -13,7 +13,7 @@ export const signinInput = z.object({
   password: z.string(),
 });
 
-export type SigninInputType = z.infer<typeof signinInput>;
+export type SigninType = z.infer<typeof signinInput>;
 
 export const createPostInput = z.object({
   title: z.string(),
