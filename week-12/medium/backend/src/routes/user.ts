@@ -2,7 +2,7 @@ import { Hono } from 'hono'
 import { PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from '@prisma/extension-accelerate'
 import { sign } from 'hono/jwt'
-// import { initMiddleware } from '../middleware';
+import { signupInput, signinInput  } from '@deepjyoti-sarmah/zod-input-validator'
 
 export const userRoute = new Hono<{
   Bindings: {
@@ -18,6 +18,13 @@ userRoute.post("/signup", async (c) => {
   }).$extends(withAccelerate())
 
   const body = await c.req.json();
+
+  const {success} = signupInput.safeParse(body);
+  if(!success) {
+    c.status(400);
+    return c.json({error: "Invalid input"});
+  }
+
   try {
     const user = await prisma.user.create({
       data: {
@@ -40,6 +47,13 @@ userRoute.post("/signin", async (c) => {
   }).$extends(withAccelerate())
 
   const body = await c.req.json();
+
+  const {success} = signinInput.safeParse(body);
+  if(!success) {
+    c.status(400);
+    return c.json({error: "Invalid input"});
+  }
+
   try {
     const user = await prisma.user.findUnique({
       where: {
