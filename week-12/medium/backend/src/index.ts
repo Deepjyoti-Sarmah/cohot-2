@@ -2,18 +2,7 @@ import { Hono } from 'hono'
 import { userRoute } from './routes/user'
 import { blogRoute } from './routes/blog'
 
-const app = new Hono<{
-  // Bindings: {
-  //   DATABASE_URL: string,
-  //   JWT_SECRET: string,
-  // },
-  // Variables: {
-  //   userId: string,
-  //   title: string,
-  //   content: string,
-  //   authorId: string
-  // }
-}>();
+const app = new Hono();
 
 app.get("/", (c) => {
   return c.text("Namaste Hono");
