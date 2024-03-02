@@ -5,25 +5,27 @@ import { Label } from "@radix-ui/react-label"
 
 const Signin = () => {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="text-2xl">Signup</CardTitle>
-        <CardDescription>Enter your email below to create your account.</CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="space-y-2">
-          <Label htmlFor="email">Email</Label>
-          <Input id="email" placeholder="m@example.com" required type="email" />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="password">Password</Label>
-          <Input id="password" required type="password" />
-        </div>
-      </CardContent>
-      <CardFooter>
-        <Button className="w-full">Sign up</Button>
-      </CardFooter>
-    </Card>
+    <div className="bg-black w-full h-screen m-auto p-4 flex flex-col align-middle justify-center">
+      <Card className="max-w-sm mx-auto">
+        <CardHeader>
+          <CardTitle className="text-2xl">Signin</CardTitle>
+          <CardDescription>Enter your email and password below to access your account.</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="email">Email</Label>
+            <Input id="email" placeholder="m@example.com" required type="email" />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="password">Password</Label>
+            <Input id="password" required type="password" />
+          </div>
+        </CardContent>
+        <CardFooter>
+          <Button className="w-full">Sign in</Button>
+        </CardFooter>
+      </Card>
+    </div>
   )
 }
 
