@@ -1,4 +1,4 @@
-"use client"
+"use clisnt"
 import axios from "axios";
 import { redirect, useRouter } from "next/navigation";
 import { ChangeEventHandler, useState } from "react";
