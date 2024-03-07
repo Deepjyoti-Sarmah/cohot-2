@@ -4,11 +4,11 @@ import Quotes from "@/components/Quote"
 const Signin = () => {
   return (
 
-    <div className="grid grid-cols-1 lg:grid-cols-2 bg-blue-100">
+    <div className="grid grid-cols-1 lg:grid-cols-2 ">
       <div>
-        <Auth />
+        <Auth type="signin"/>
       </div>
-      <div className="hidden lg:block bg-gray-200">
+      <div className="hidden lg:block bg-gray-50">
         <Quotes />
       </div>
     </div>
