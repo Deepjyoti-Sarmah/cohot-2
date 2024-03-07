@@ -2,19 +2,29 @@ import { Label } from "@radix-ui/react-label"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card"
 import { Input } from "./ui/input"
 import { Button } from "./ui/button"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { ChangeEvent, useState } from "react"
-import { SignupType } from "@deepjyoti-sarmah/zod-input-validator"
+import { SignupType} from "@deepjyoti-sarmah/zod-input-validator"
+import axios from "axios"
+import { BACKEND_URL } from "@/config"
 
 const Auth = ({type}: {type: "signin" | "signup"}) => {
+  const naviagate = useNavigate();
 
   const [postInputs, setPostInputs] = useState<SignupType>({
     email: "",
     password: ""
   });
 
-  const sendRequest = () => {
-
+  const sendRequest = async () => {
+    try {
+      const response = await axios.post(`${BACKEND_URL}/api/v1/user/${type=== "signup"? "signup":"signin"}`, postInputs);
+      const jwt = response.data;
+      localStorage.setItem("token", jwt);
+      naviagate("/blog")
+    } catch (error) {
+      alert(`Error while ${type === "signin"? "signin": "signup"}`);
+    }
   }
 
   return (
@@ -38,7 +48,7 @@ const Auth = ({type}: {type: "signin" | "signup"}) => {
             }))
           }}/>
           <div className="space-y-2">
-            <Button>{type === "signup"? "Sign Up": "Sign In"}</Button>
+            <Button onClick={sendRequest}>{type === "signup"? "Sign Up": "Sign In"}</Button>
           </div>
         </CardContent>
         <CardFooter className="space-y-2 text-gray-700">
