@@ -23,7 +23,7 @@ export declare const signinInput: z.ZodObject<{
     email: string;
     password: string;
 }>;
-export declare type SigninInputType = z.infer<typeof signinInput>;
+export declare type SigninType = z.infer<typeof signinInput>;
 export declare const createPostInput: z.ZodObject<{
     title: z.ZodString;
     content: z.ZodString;
