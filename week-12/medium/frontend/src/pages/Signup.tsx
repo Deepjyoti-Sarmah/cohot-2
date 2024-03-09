@@ -7,7 +7,7 @@ const Signup = () => {
       <div>
         <Auth type="signup" />
       </div>
-      <div className="hidden lg:block bg-gray-50">
+      <div className="hidden lg:block bg-slate-100">
         <Quotes />
       </div>
     </div>

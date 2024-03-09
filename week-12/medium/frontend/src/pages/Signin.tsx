@@ -8,7 +8,7 @@ const Signin = () => {
       <div>
         <Auth type="signin"/>
       </div>
-      <div className="hidden lg:block bg-gray-50">
+      <div className="hidden lg:block ">
         <Quotes />
       </div>
     </div>
