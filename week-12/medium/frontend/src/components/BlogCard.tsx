@@ -12,7 +12,7 @@ interface BlogCardProps {
 const BlogCard = ({authorName, title, content, publishedDate}: BlogCardProps) => {
   return (
     <div className="max-w-4xl mx-auto p-6 mt-8">
-      <div className="flex items-center space-x-2 mb-4">
+      <div className="flex items-center space-x-4 mb-4">
         <Avatar>
           <AvatarImage alt="Peter V." src="/placeholder.svg?height=40&width=40" />
           <AvatarFallback>{authorName[0]}</AvatarFallback>

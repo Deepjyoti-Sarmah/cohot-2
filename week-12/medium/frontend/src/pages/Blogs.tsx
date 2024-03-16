@@ -5,7 +5,7 @@ const Blogs = () => {
   return (
     <div>
       <Appbar />
-      <div className="container m-auto pt-4">
+      <div className="container m-auto pt-5">
         <BlogCard 
           authorName="deep" 
           title="Lorem ipsum dolor sit amet."
